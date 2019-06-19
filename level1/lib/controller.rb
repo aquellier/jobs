@@ -10,8 +10,7 @@ class Controller
   end
 
   def list
-    teachers = @mymentor.all
+    teachers = @mymentor.all_teachers
     @view.display(teachers)
-    p "Linking is ok"
   end
 end

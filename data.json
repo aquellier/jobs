@@ -1,5 +1,20 @@
 {
   "teachers": [
+    {
+      "id": 1,
+      "firstname": "Zinedine",
+      "lastname": "Zidane"
+    },
+    {
+      "id": 2,
+      "firstname": "Thierry",
+      "lastname": "Henry"
+    },
+    {
+      "id": 3,
+      "firstname": "Patrick",
+      "lastname": "Viera"
+    }
   ],
   "requests": [
   ],
