@@ -19,7 +19,8 @@ class Router
 
   def route_action(action)
     case action
-    when 1 then @controller.list
+    when 1 then @controller.list_teachers
+    when 2 then @controller.create
     when 3 then stop
     else
       puts "Please press 1, 2, 3 or 4"
