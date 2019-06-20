@@ -2,17 +2,61 @@
   "teachers": [
     {
       "id": 1,
-      "firstname": "A",
-      "lastname": "B",
-      "skills": {
-      }
+      "firstname": "a",
+      "lastname": "a",
+      "skills": [
+        {
+          "field": 1,
+          "level": 1
+        }
+      ]
     },
     {
       "id": 1,
-      "firstname": "Antoine",
-      "lastname": "Quellier",
-      "skills": {
-      }
+      "firstname": "antoine",
+      "lastname": "quellier",
+      "skills": [
+        {
+          "field": 5,
+          "level": 6
+        }
+      ]
+    },
+    {
+      "id": 1,
+      "firstname": "antoine",
+      "lastname": "fezfez"
+    },
+    {
+      "id": 2,
+      "firstname": "fesf",
+      "lastname": "fesff",
+      "skills": [
+        {
+          "field": 3,
+          "level": 4
+        }
+      ]
+    },
+    {
+      "id": 3,
+      "firstname": "Frean ",
+      "lastname": "fldsf"
+    },
+    {
+      "id": 4,
+      "firstname": "jezr",
+      "lastname": "ezrfzs",
+      "skills": [
+        {
+          "field": 1,
+          "level": 3
+        },
+        {
+          "field": 4,
+          "level": 6
+        }
+      ]
     }
   ],
   "requests": [

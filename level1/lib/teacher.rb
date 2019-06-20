@@ -1,20 +1,27 @@
 class Teacher
-  ATTRIBUTES = [:id, :firstname, :lastname, :skills]
-  attr_reader *ATTRIBUTES
+  attr_reader :id, :firstname, :lastname, :skills
 
-  def initialize(id, firstname, lastname, skills = {})
+  def initialize(id, firstname, lastname, skills = [])
     @id = id
     @firstname = firstname
     @lastname = lastname
     @skills = skills
   end
 
-  # Create attributes method to convert them to json
-  def attributes
-    values = {}
-    ATTRIBUTES.each do |key|
-      values[key] = self.send(key)
+  def to_json
+    if @skills.empty?
+      {
+        id: id,
+        firstname: firstname,
+        lastname: lastname
+      }
+    else
+      {
+        id: id,
+        firstname: firstname,
+        lastname: lastname,
+        skills: skills.map { |skill| {field: skill[:field].id, level: skill[:level].id} }
+      }
     end
-    values
   end
 end
