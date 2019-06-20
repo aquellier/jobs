@@ -20,6 +20,12 @@ class Mymentor
     save_requests_to_json
   end
 
+  def update_request(request, teacher)
+    @requests.delete request
+    @requests << Request.new(request.id, request.field, request.level, teacher)
+    save_requests_to_json
+  end
+
   def all_teachers
     @teachers
   end
@@ -45,7 +51,6 @@ class Mymentor
   def save_requests_to_json
     parsed_data = parse_json
     parsed_data[:requests] = @requests.map(&:to_json)
-    byebug
     save_to_json(parsed_data)
   end
 

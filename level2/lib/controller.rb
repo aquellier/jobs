@@ -17,12 +17,9 @@ class Controller
     @requests = @mymentor.all_requests
   end
 
+  # Teachers methods
   def list_teachers
     @view.display_teachers(@teachers)
-  end
-
-  def list_resquests
-    @view.display_requests(@requests)
   end
 
   def create_teacher
@@ -48,12 +45,30 @@ class Controller
     end
   end
 
+  # Requests methods
+  def list_resquests
+    @view.display_requests(@requests)
+  end
+
   def create_request
     field = select_field
     level = select_level
     id = @requests.empty? ? 1 : @requests.last.id + 1
     request = Request.new(id, field, level)
     @mymentor.add_request(request)
+    teachers = qualified_teachers(field, level)
+    if teachers.empty?
+      @view.no_teacher
+    else
+      @view.show_qualified_teachers(teachers)
+      teacher_index = @view.select_teacher - 1
+      @mymentor.update_request(request, @teachers[teacher_index])
+    end
+  end
+
+  def qualified_teachers(field, level)
+    requested_skill = { field: field, level: level }
+    teachers = @teachers.select { |teacher| teacher.skills.include? requested_skill }
   end
 
   private
