@@ -104,11 +104,20 @@ class Mymentor
 
   def json_requests_to_instances(requests)
     requests.each do |request|
-      @requests << Request.new(
-        request[:id],
-        @fields[(request[:field] - 1)],
-        @levels[(request[:level] - 1)]
-      )
+      if request[:teacher]
+        @requests << Request.new(
+          request[:id],
+          @fields[(request[:field] - 1)],
+          @levels[(request[:level] - 1)],
+          @teachers[(request[:teacher] - 1)]
+        )
+      else
+        @requests << Request.new(
+          request[:id],
+          @fields[(request[:field] - 1)],
+          @levels[(request[:level] - 1)]
+        )
+     end
     end
   end
 
