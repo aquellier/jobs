@@ -1,6 +1,7 @@
 require_relative 'teacher'
 require_relative 'level'
 require_relative 'field'
+require_relative 'request'
 require_relative 'mymentor'
 require_relative 'view'
 require 'byebug'
@@ -13,13 +14,18 @@ class Controller
     @teachers = @mymentor.all_teachers
     @fields = @mymentor.all_fields
     @levels = @mymentor.all_levels
+    @requests = @mymentor.all_requests
   end
 
   def list_teachers
     @view.display_teachers(@teachers)
   end
 
-  def create
+  def list_resquests
+    @view.display_requests(@requests)
+  end
+
+  def create_teacher
     firstname = @view.ask_user_for("firstname")
     lastname = @view.ask_user_for("lastname")
     id = @teachers.empty? ? 1 : @teachers.last.id + 1
@@ -40,6 +46,14 @@ class Controller
     else
       teacher.skills << new_skill
     end
+  end
+
+  def create_request
+    field = select_field
+    level = select_level
+    id = @requests.empty? ? 1 : @requests.last.id + 1
+    request = Request.new(id, field, level)
+    @mymentor.add_request(request)
   end
 
   private

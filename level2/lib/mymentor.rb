@@ -6,12 +6,18 @@ class Mymentor
     @teachers = []
     @fields = []
     @levels = []
+    @requests = []
     load_json if File.exist?(@json_file)
   end
 
   def add_teacher(teacher)
     @teachers << teacher
     save_teachers_to_json
+  end
+
+  def add_request(request)
+    @requests << request
+    save_requests_to_json
   end
 
   def all_teachers
@@ -26,12 +32,21 @@ class Mymentor
     @levels
   end
 
+  def all_requests
+    @requests
+  end
+
   def save_teachers_to_json
     parsed_data = parse_json
     parsed_data[:teachers] = @teachers.map(&:to_json)
-    File.open(@json_file, 'w') do |f|
-      f.write(JSON.pretty_generate(parsed_data))
-    end
+    save_to_json(parsed_data)
+  end
+
+  def save_requests_to_json
+    parsed_data = parse_json
+    parsed_data[:requests] = @requests.map(&:to_json)
+    byebug
+    save_to_json(parsed_data)
   end
 
   private
@@ -41,6 +56,7 @@ class Mymentor
     json_fields_to_instances(parsed_data[:fields])
     json_levels_to_instances(parsed_data[:levels])
     json_teachers_to_instances(parsed_data[:teachers])
+    json_requests_to_instances(parsed_data[:requests])
   end
 
   def json_teachers_to_instances(teachers)
@@ -78,6 +94,22 @@ class Mymentor
         level[:grade],
         level[:cycle]
       )
+    end
+  end
+
+  def json_requests_to_instances(requests)
+    requests.each do |request|
+      @requests << Request.new(
+        request[:id],
+        @fields[(request[:field] - 1)],
+        @levels[(request[:level] - 1)]
+      )
+    end
+  end
+
+  def save_to_json(data)
+    File.open(@json_file, 'w') do |f|
+      f.write(JSON.pretty_generate(data))
     end
   end
 
