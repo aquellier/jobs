@@ -1,7 +1,9 @@
 class View
   def display(teachers)
     teachers.each do |teacher|
-      p "#{teacher.firstname} #{teacher.lastname}"
+      puts "#{teacher.id} -- #{teacher.firstname} #{teacher.lastname}"
+      puts "  Skills:"
+      puts "  #{teacher.skills}"
     end
   end
 

@@ -26,20 +26,23 @@ class Mymentor
 
   def load_json
     parsed_data = parse_json
-    @teachers = parsed_data[:teachers]
+    convert_json_teachers_to_instances(parsed_data[:teachers])
     @skills = parsed_data[:skills]
+  end
+
+  def convert_json_teachers_to_instances(teachers)
+    teachers.each do |t|
+      @teachers << Teacher.new(t[:id],
+                               t[:firstname],
+                               t[:lastname],
+                               t[:skills]
+                              )
+    end
   end
 
   def save_teachers_to_json
     parsed_data = parse_json
-    byebug
-    parsed_data[:teachers] = @teachers.map do |t|
-      { id: t.id,
-        firstname: t.firstname,
-        lastname: t.lastname,
-        skills: t.skills
-      }
-    end
+    parsed_data[:teachers] = @teachers.map { |teacher| teacher.attributes }
     File.open(@json_file, "wb") do |f|
       f.write(JSON.pretty_generate(parsed_data))
     end

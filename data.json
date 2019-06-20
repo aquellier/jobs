@@ -2,6 +2,13 @@
   "teachers": [
     {
       "id": 1,
+      "firstname": "A",
+      "lastname": "B",
+      "skills": {
+      }
+    },
+    {
+      "id": 1,
       "firstname": "Antoine",
       "lastname": "Quellier",
       "skills": {
