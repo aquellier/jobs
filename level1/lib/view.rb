@@ -10,4 +10,13 @@ class View
     print "> "
     return gets.chomp
   end
+
+  def ask_skills
+
+  end
+
+  private
+
+  def parse_skills
+  end
 end
