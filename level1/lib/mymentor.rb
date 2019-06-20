@@ -26,17 +26,29 @@ class Mymentor
 
   def load_json
     parsed_data = parse_json
-    convert_json_teachers_to_instances(parsed_data[:teachers])
-    @skills = parsed_data[:skills]
+    json_teachers_to_instances(parsed_data[:teachers])
+    json_skills_to_instances(parsed_data[:skills])
   end
 
-  def convert_json_teachers_to_instances(teachers)
-    teachers.each do |t|
-      @teachers << Teacher.new(t[:id],
-                               t[:firstname],
-                               t[:lastname],
-                               t[:skills]
-                              )
+  def json_teachers_to_instances(teachers)
+    teachers.map! do |teacher|
+      Teacher.new(
+        teacher[:id],
+        teacher[:firstname],
+        teacher[:lastname],
+        teacher[:skills]
+      )
+    end
+  end
+
+  def json_skills_to_instances(skills)
+    skills.map! do |skill|
+      Skill.new(
+        skill[:id],
+        skill[:firstname],
+        skill[:lastname],
+        skill[:skills]
+      )
     end
   end
 
