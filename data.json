@@ -57,6 +57,17 @@
           "level": 6
         }
       ]
+    },
+    {
+      "id": 5,
+      "firstname": "Jack",
+      "lastname": "Lang",
+      "skills": [
+        {
+          "field": 2,
+          "level": 4
+        }
+      ]
     }
   ],
   "requests": [
