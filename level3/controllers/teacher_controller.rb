@@ -17,12 +17,12 @@ class TeacherController
 
   # Teachers methods
   def list_teachers
-    @view.display_teachers(@teachers)
+    ::Helper.new.display_teachers(@teachers)
   end
 
   def create_teacher
-    firstname = @view.ask_user_for("firstname")
-    lastname = @view.ask_user_for("lastname")
+    firstname = ::Helper.new.ask_user_for("firstname")
+    lastname = ::Helper.new.ask_user_for("lastname")
     id = @teachers.empty? ? 1 : @teachers.last.id + 1
     teacher = Teacher.new(id, firstname, lastname)
     @mymentor.add_teacher(teacher)

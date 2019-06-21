@@ -18,16 +18,4 @@ class TeacherView
   def display_teachers(teachers)
     ::Helper.new.display_teachers(teachers)
   end
-
-  def ask_user_for(input)
-    ::Helper.new.ask_user_for(input)
-  end
-
-  def choose_skill(fields)
-    ::Helper.new.choose_skill(fields)
-  end
-
-  def choose_level(levels)
-    ::Helper.new.choose_level(levels)
-  end
 end

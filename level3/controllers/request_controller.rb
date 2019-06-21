@@ -22,8 +22,8 @@ class RequestController
   end
 
   def create_request
-    firstname = @view.ask_user_for("firstname")
-    lastname = @view.ask_user_for("lastname")
+    firstname = ::Helper.new.ask_user_for("firstname")
+    lastname = ::Helper.new.ask_user_for("lastname")
     field = ::Selection.new(@mymentor).select_field
     level = ::Selection.new(@mymentor).select_level
     id = @requests.empty? ? 1 : @requests.last.id + 1
@@ -50,7 +50,7 @@ class RequestController
 
   def add_course_to_request(request)
     date = @view.course_date
-    length = @view.ask_user_for("Length in hour").to_i
+    length = ::Helper.new.ask_user_for("Length in hour").to_i
     request.courses << { date: date, length: length }
   end
 
