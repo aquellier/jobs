@@ -41,7 +41,7 @@ class RequestController
     @mymentor.update_request(
       request,
       @teachers[teacher_index],
-      rand(20..60),
+      Request::PRICE_PER_HOUR,
       request.courses
     )
   end
@@ -50,7 +50,7 @@ class RequestController
     while @view.add_courses
       date = @view.course_date
       length = ::Helper.new.ask_user_for("Length in hour").to_i
-      request.courses << { date: date, length: length }
+      request.courses << { date: date, length: length, request_id: request.id }
     end
   end
 
@@ -64,6 +64,20 @@ class RequestController
     else
       @view.no_courses
     end
+  end
+
+  def get_price_between_dates
+    start_date = @view.start_date
+    end_date = @view.end_date
+    byebug
+    all_courses = @requests.map(&:courses).flatten
+    courses = all_courses.select do |course|
+      start_date < course[:date] && course[:date] < end_date
+    end
+    total_price = courses.map do |course|
+      course[:length] * @requests[(course[:request_id]-1)].price_per_hour
+    end.sum
+    @view.give_price(total_price)
   end
 
   def qualified_teachers(field, level)

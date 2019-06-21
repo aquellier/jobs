@@ -1,6 +1,7 @@
 class Request
   attr_reader :id, :firstname, :lastname, :field, :level, :teacher, :price_per_hour, :courses
 
+  PRICE_PER_HOUR = 20
   def initialize(id, firstname, lastname, field, level, teacher = nil, price_per_hour = nil, courses = [])
     @id = id
     @firstname = firstname

@@ -126,7 +126,8 @@ class Mymentor
           request[:courses].map do |course|
             {
               date: Date.strptime(course[:date], '%Y-%m-%d'),
-              length: course[:length]
+              length: course[:length],
+              request_id: course[:request_id]
             }
           end
         )

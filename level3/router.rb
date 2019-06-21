@@ -25,9 +25,10 @@ class Router
     when 3 then @request_controller.list_resquests
     when 4 then @request_controller.create_request
     when 5 then @request_controller.get_price
-    when 6 then stop
+    when 6 then @request_controller.get_price_between_dates
+    when 7 then stop
     else
-      puts "Please press 1, 2, 3 or 4"
+      puts "Please press 1, 2, 3, 4, 5, 6 or 7"
     end
   end
 
@@ -43,6 +44,7 @@ class Router
     puts "3 - See all requests"
     puts "4 - Add a request"
     puts "5 - Get price for a request"
-    puts "6 - Close application"
+    puts "6 - Get total price of courses between 2 dates"
+    puts "7 - Close application"
   end
 end

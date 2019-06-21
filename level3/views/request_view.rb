@@ -49,10 +49,20 @@ class RequestView
   end
 
   def give_price(price)
-    puts "The total price for this request is #{price}€."
+    puts "The total price is #{price}€."
   end
 
   def no_courses
     puts "Sorry there is no course for this request at the moment."
+  end
+
+  def start_date
+    puts "Startdate:"
+    course_date
+  end
+
+  def end_date
+    puts "Enddate:"
+    course_date
   end
 end
