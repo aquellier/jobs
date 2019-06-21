@@ -51,10 +51,12 @@ class Controller
   end
 
   def create_request
+    firstname = @view.ask_user_for("firstname")
+    lastname = @view.ask_user_for("lastname")
     field = select_field
     level = select_level
     id = @requests.empty? ? 1 : @requests.last.id + 1
-    request = Request.new(id, field, level)
+    request = Request.new(id, firstname, lastname, field, level)
     @mymentor.add_request(request)
     teachers = qualified_teachers(field, level)
     if teachers.empty?

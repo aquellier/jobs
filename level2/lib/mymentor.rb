@@ -22,7 +22,14 @@ class Mymentor
 
   def update_request(request, teacher)
     @requests.delete request
-    @requests << Request.new(request.id, request.field, request.level, teacher)
+    @requests << Request.new(
+      request.id,
+      request.firstname,
+      request.lastname,
+      request.field,
+      request.level,
+      teacher
+    )
     save_requests_to_json
   end
 
@@ -107,6 +114,8 @@ class Mymentor
       if request[:teacher]
         @requests << Request.new(
           request[:id],
+          request[:firstname],
+          request[:lastname],
           @fields[(request[:field] - 1)],
           @levels[(request[:level] - 1)],
           @teachers[(request[:teacher] - 1)]
@@ -114,6 +123,8 @@ class Mymentor
       else
         @requests << Request.new(
           request[:id],
+          request[:firstname],
+          request[:lastname],
           @fields[(request[:field] - 1)],
           @levels[(request[:level] - 1)]
         )

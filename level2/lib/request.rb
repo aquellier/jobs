@@ -1,8 +1,10 @@
 class Request
-  attr_reader :id, :field, :level, :teacher
+  attr_reader :id, :firstname, :lastname, :field, :level, :teacher
 
-  def initialize(id, field, level, teacher = nil)
+  def initialize(id, firstname, lastname, field, level, teacher = nil)
     @id = id
+    @firstname = firstname
+    @lastname = lastname
     @field = field
     @level = level
     @teacher = teacher
@@ -12,6 +14,8 @@ class Request
     if teacher
       {
         id: id,
+        firstname: firstname,
+        lastname: lastname,
         field: field.id,
         level: level.id,
         teacher: teacher.id
@@ -19,6 +23,8 @@ class Request
     else
       {
         id: id,
+        firstname: firstname,
+        lastname: lastname,
         field: field.id,
         level: level.id
       }
