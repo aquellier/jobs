@@ -2,14 +2,14 @@ require_relative '../models/teacher'
 require_relative '../models/level'
 require_relative '../models/field'
 require_relative '../mymentor'
-require_relative '../views/view'
+require_relative '../views/teacher_view'
 require_relative '../services/selection'
 require 'byebug'
 
 class TeacherController
   def initialize(mymentor)
     @mymentor = mymentor
-    @view = View.new
+    @view = TeacherView.new
     @teachers = @mymentor.all_teachers
     @fields = @mymentor.all_fields
     @levels = @mymentor.all_levels

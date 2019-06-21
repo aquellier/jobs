@@ -99,6 +99,17 @@
       "id": 8,
       "firstname": "Antointe",
       "lastname": "ezrezr"
+    },
+    {
+      "id": 9,
+      "firstname": "fesf",
+      "lastname": "efsef",
+      "skills": [
+        {
+          "field": 2,
+          "level": 3
+        }
+      ]
     }
   ],
   "fields": [
@@ -366,7 +377,29 @@
       "lastname": "rezrrr",
       "field": 1,
       "level": 3,
-      "teacher": 2
+      "teacher": 1
+    },
+    {
+      "id": 30,
+      "firstname": "rezr",
+      "lastname": "rezr",
+      "field": 1,
+      "level": 2
+    },
+    {
+      "id": 31,
+      "firstname": "fzerze",
+      "lastname": "rezrez",
+      "field": 1,
+      "level": 1
+    },
+    {
+      "id": 32,
+      "firstname": "rezrez",
+      "lastname": "rezrez",
+      "field": 1,
+      "level": 1,
+      "teacher": 1
     }
   ]
 }

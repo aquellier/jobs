@@ -3,13 +3,13 @@ require_relative '../models/level'
 require_relative '../models/field'
 require_relative '../models/request'
 require_relative '../mymentor'
-require_relative '../views/view'
+require_relative '../views/request_view'
 require 'byebug'
 
 class RequestController
   def initialize(mymentor)
     @mymentor = mymentor
-    @view = View.new
+    @view = RequestView.new
     @teachers = @mymentor.all_teachers
     @fields = @mymentor.all_fields
     @levels = @mymentor.all_levels

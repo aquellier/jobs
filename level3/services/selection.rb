@@ -1,7 +1,7 @@
 require_relative '../mymentor'
 require_relative '../models/field'
 require_relative '../models/request'
-require_relative '../views/view'
+require_relative '../views/helper'
 
 class Selection
 
@@ -9,7 +9,7 @@ class Selection
     @mymentor = mymentor
     @fields = @mymentor.all_fields
     @levels = @mymentor.all_levels
-    @view = View.new
+    @view = Helper.new
   end
 
   def select_field
