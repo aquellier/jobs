@@ -37,9 +37,7 @@ class RequestController
       @view.show_qualified_teachers(teachers)
       teacher_index = @view.select_teacher - 1
     end
-    while @view.add_courses
-      add_course_to_request(request)
-    end
+    add_course_to_request(request)
     @mymentor.update_request(
       request,
       @teachers[teacher_index],
@@ -49,9 +47,23 @@ class RequestController
   end
 
   def add_course_to_request(request)
-    date = @view.course_date
-    length = ::Helper.new.ask_user_for("Length in hour").to_i
-    request.courses << { date: date, length: length }
+    while @view.add_courses
+      date = @view.course_date
+      length = ::Helper.new.ask_user_for("Length in hour").to_i
+      request.courses << { date: date, length: length }
+    end
+  end
+
+  def get_price
+    request_id = @view.get_request(@requests)
+    request = @requests[request_id - 1]
+    if request.courses.any?
+      price_per_hour = request.price_per_hour
+      number_of_hours = request.courses.map { |course| course[:length] }.sum
+      @view.give_price(price_per_hour * number_of_hours)
+    else
+      @view.no_courses
+    end
   end
 
   def qualified_teachers(field, level)

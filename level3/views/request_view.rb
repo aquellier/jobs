@@ -40,4 +40,19 @@ class RequestView
     print "> "
     gets.chomp == "yes"
   end
+
+  def get_request(requests)
+    display_requests(requests)
+    puts "Please type the number of the request"
+    print "> "
+    gets.chomp.to_i
+  end
+
+  def give_price(price)
+    puts "The total price for this request is #{price}€."
+  end
+
+  def no_courses
+    puts "Sorry there is no course for this request at the moment."
+  end
 end
