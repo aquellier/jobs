@@ -20,7 +20,7 @@ class Mymentor
     save_requests_to_json
   end
 
-  def update_request(request, teacher)
+  def update_request(request, teacher, price_per_hour)
     @requests.delete request
     @requests << Request.new(
       request.id,
@@ -28,7 +28,8 @@ class Mymentor
       request.lastname,
       request.field,
       request.level,
-      teacher
+      teacher,
+      price_per_hour
     )
     save_requests_to_json
   end

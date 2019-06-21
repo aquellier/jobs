@@ -35,7 +35,7 @@ class RequestController
     else
       @view.show_qualified_teachers(teachers)
       teacher_index = @view.select_teacher - 1
-      @mymentor.update_request(request, @teachers[teacher_index])
+      @mymentor.update_request(request, @teachers[teacher_index], rand(20..60))
     end
   end
 

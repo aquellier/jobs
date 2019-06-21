@@ -1,5 +1,4 @@
 class Helper
-  # Shared methods
   def display_teachers(teachers)
     teachers.each do |teacher|
       puts "#{teacher.id}./ #{teacher.firstname.capitalize} #{teacher.lastname.upcase}"

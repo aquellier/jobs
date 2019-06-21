@@ -318,7 +318,8 @@
       "lastname": null,
       "field": 1,
       "level": 1,
-      "teacher": 1
+      "teacher": 1,
+      "price_per_hour": null
     },
     {
       "id": 22,
@@ -347,7 +348,8 @@
       "lastname": "Aezaee",
       "field": 1,
       "level": 1,
-      "teacher": 1
+      "teacher": 1,
+      "price_per_hour": null
     },
     {
       "id": 26,
@@ -355,7 +357,8 @@
       "lastname": "rezr",
       "field": 1,
       "level": 1,
-      "teacher": 1
+      "teacher": 1,
+      "price_per_hour": null
     },
     {
       "id": 27,
@@ -377,7 +380,8 @@
       "lastname": "rezrrr",
       "field": 1,
       "level": 3,
-      "teacher": 1
+      "teacher": 1,
+      "price_per_hour": null
     },
     {
       "id": 30,
@@ -399,7 +403,53 @@
       "lastname": "rezrez",
       "field": 1,
       "level": 1,
-      "teacher": 1
+      "teacher": 1,
+      "price_per_hour": null
+    },
+    {
+      "id": 33,
+      "firstname": "rezr",
+      "lastname": "rezrr",
+      "field": 3,
+      "level": 3,
+      "teacher": 1,
+      "price_per_hour": null
+    },
+    {
+      "id": 34,
+      "firstname": "fesf",
+      "lastname": "fesfffg",
+      "field": 1,
+      "level": 1,
+      "teacher": 1,
+      "price_per_hour": null
+    },
+    {
+      "id": 35,
+      "firstname": "rezr",
+      "lastname": "rezrrr",
+      "field": 1,
+      "level": 1,
+      "teacher": 1,
+      "price_per_hour": null
+    },
+    {
+      "id": 36,
+      "firstname": "rezr",
+      "lastname": "rezr",
+      "field": 1,
+      "level": 1,
+      "teacher": 1,
+      "price_per_hour": null
+    },
+    {
+      "id": 37,
+      "firstname": "rezr",
+      "lastname": "rezr",
+      "field": 1,
+      "level": 1,
+      "teacher": 1,
+      "price_per_hour": 52
     }
   ]
 }
