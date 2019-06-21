@@ -1,4 +1,5 @@
 require 'json'
+require 'date'
 
 class Mymentor
   def initialize(json_file)
@@ -20,7 +21,7 @@ class Mymentor
     save_requests_to_json
   end
 
-  def update_request(request, teacher, price_per_hour)
+  def update_request(request, teacher, price_per_hour, courses)
     @requests.delete request
     @requests << Request.new(
       request.id,
@@ -29,7 +30,8 @@ class Mymentor
       request.field,
       request.level,
       teacher,
-      price_per_hour
+      price_per_hour,
+      courses
     )
     save_requests_to_json
   end
@@ -112,14 +114,21 @@ class Mymentor
 
   def json_requests_to_instances(requests)
     requests.each do |request|
-      if request[:teacher]
+      if request[:courses]
         @requests << Request.new(
           request[:id],
           request[:firstname],
           request[:lastname],
           @fields[(request[:field] - 1)],
           @levels[(request[:level] - 1)],
-          @teachers[(request[:teacher] - 1)]
+          @teachers[(request[:teacher] - 1)],
+          request[:price_per_hour],
+          request[:courses].map do |course|
+            {
+              date: Date.strptime(course[:date], '%Y-%m-%d'),
+              length: course[:length]
+            }
+          end
         )
       else
         @requests << Request.new(

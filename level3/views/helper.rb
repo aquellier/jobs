@@ -12,7 +12,7 @@ class Helper
   def ask_user_for(input)
     puts "#{input.capitalize}?"
     print "> "
-    return gets.chomp
+    gets.chomp
   end
 
   def choose_skill(fields)
@@ -31,5 +31,11 @@ class Helper
     end
     print "> "
     gets.chomp.to_i
+  end
+
+  def map_courses(courses)
+    courses.map do |course|
+      "#{course[:date]} for #{course[:length]}h"
+    end
   end
 end

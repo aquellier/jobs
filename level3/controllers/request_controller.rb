@@ -32,11 +32,26 @@ class RequestController
     teachers = qualified_teachers(field, level)
     if teachers.empty?
       @view.no_teacher
+      return
     else
       @view.show_qualified_teachers(teachers)
       teacher_index = @view.select_teacher - 1
-      @mymentor.update_request(request, @teachers[teacher_index], rand(20..60))
     end
+    while @view.add_courses
+      add_course_to_request(request)
+    end
+    @mymentor.update_request(
+      request,
+      @teachers[teacher_index],
+      rand(20..60),
+      request.courses
+    )
+  end
+
+  def add_course_to_request(request)
+    date = @view.course_date
+    length = @view.ask_user_for("Length in hour").to_i
+    request.courses << { date: date, length: length }
   end
 
   def qualified_teachers(field, level)

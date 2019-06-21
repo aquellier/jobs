@@ -13,7 +13,7 @@ class Request
   end
 
   def to_json
-    if teacher
+    if teacher && courses.any?
       {
         id: id,
         firstname: firstname,
@@ -21,7 +21,8 @@ class Request
         field: field.id,
         level: level.id,
         teacher: teacher.id,
-        price_per_hour: price_per_hour
+        price_per_hour: price_per_hour,
+        courses: courses
       }
     else
       {
