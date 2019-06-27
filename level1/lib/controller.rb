@@ -3,9 +3,7 @@ require_relative 'level'
 require_relative 'field'
 require_relative 'mymentor'
 require_relative 'view'
-require 'byebug'
-
-
+# Controller, gets input from router and calls view methods
 class Controller
   def initialize(mymentor)
     @mymentor = mymentor
@@ -20,8 +18,8 @@ class Controller
   end
 
   def create
-    firstname = @view.ask_user_for("firstname")
-    lastname = @view.ask_user_for("lastname")
+    firstname = @view.ask_user_for('firstname')
+    lastname = @view.ask_user_for('lastname')
     id = @teachers.empty? ? 1 : @teachers.last.id + 1
     teacher = Teacher.new(id, firstname, lastname)
     @mymentor.add_teacher(teacher)
@@ -53,5 +51,4 @@ class Controller
     level_id = @view.choose_level(@levels)
     @levels[level_id - 1]
   end
-
 end

@@ -1,3 +1,4 @@
+# Level Model
 class Level
   attr_reader :id, :grade, :cycle
 

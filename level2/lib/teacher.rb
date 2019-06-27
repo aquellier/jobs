@@ -1,3 +1,4 @@
+# Teacher model
 class Teacher
   attr_reader :id, :firstname, :lastname, :skills
 
@@ -10,18 +11,26 @@ class Teacher
 
   def to_json
     if @skills.empty?
-      {
-        id: id,
-        firstname: firstname,
-        lastname: lastname
-      }
+      simple_json
     else
-      {
-        id: id,
-        firstname: firstname,
-        lastname: lastname,
-        skills: skills.map { |skill| {field: skill[:field].id, level: skill[:level].id} }
-      }
+      complete_json
     end
+  end
+
+  def simple_json
+    {
+      id: id,
+      firstname: firstname,
+      lastname: lastname
+    }
+  end
+
+  def complete_json
+    {
+      id: id,
+      firstname: firstname,
+      lastname: lastname,
+      skills: skills.map { |skill| { field: skill[:field].id, level: skill[:level].id } }
+    }
   end
 end

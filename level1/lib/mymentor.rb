@@ -1,5 +1,5 @@
 require 'json'
-
+# Acts as a DB, interaction between data.json and models
 class Mymentor
   def initialize(json_file)
     @json_file = json_file
@@ -45,21 +45,31 @@ class Mymentor
 
   def json_teachers_to_instances(teachers)
     teachers.each do |teacher|
-      if teacher[:skills]
-        @teachers << Teacher.new(
-          teacher[:id],
-          teacher[:firstname],
-          teacher[:lastname],
-          teacher[:skills].map do |skill|
-            { field: @fields[(skill[:field] - 1)],
-              level: @levels[(skill[:level] - 1)]
-            }
-          end
-        )
-      else
-        @teachers << Teacher.new(teacher[:id], teacher[:firstname], teacher[:lastname])
-      end
+      @teachers << if teacher[:skills]
+                     create_complete_teacher_instance(teacher)
+                   else
+                     create_simple_teacher_instance(teacher)
+                   end
     end
+  end
+
+  def create_simple_teacher_instance(teacher)
+    Teacher.new(
+      teacher[:id],
+      teacher[:firstname],
+      teacher[:lastname]
+    )
+  end
+
+  def create_complete_teacher_instance(teacher)
+    Teacher.new(
+      teacher[:id],
+      teacher[:firstname],
+      teacher[:lastname],
+      teacher[:skills].map do |skill|
+        { field: @fields[(skill[:field] - 1)], level: @levels[(skill[:level] - 1)] }
+      end
+    )
   end
 
   def json_fields_to_instances(fields)

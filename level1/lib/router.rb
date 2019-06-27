@@ -1,3 +1,4 @@
+# Router, takes first user input and calls a controller method
 class Router
   def initialize(controller)
     @controller = controller
@@ -5,12 +6,11 @@ class Router
   end
 
   def run
-    puts "Welcome to MyMentor project!"
+    puts 'Welcome to MyMentor project!'
 
     while @running
       app_features
       action = gets.chomp.to_i
-      'hello'
       route_action(action)
     end
   end
@@ -23,7 +23,7 @@ class Router
     when 2 then @controller.create
     when 3 then stop
     else
-      puts "Please press 1, 2, 3 or 4"
+      puts 'Please press 1, 2, 3 or 4'
     end
   end
 
@@ -32,10 +32,10 @@ class Router
   end
 
   def app_features
-    puts ""
-    puts "What do you want to do next?"
-    puts "1 - See all teachers"
-    puts "2 - Add a teacher"
-    puts "3 - Close application"
+    puts ''
+    puts 'What do you want to do next?'
+    puts '1 - See all teachers'
+    puts '2 - Add a teacher'
+    puts '3 - Close application'
   end
 end

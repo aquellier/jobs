@@ -1,3 +1,4 @@
+# Request model
 class Request
   attr_reader :id, :firstname, :lastname, :field, :level, :teacher
 
@@ -12,22 +13,30 @@ class Request
 
   def to_json
     if teacher
-      {
-        id: id,
-        firstname: firstname,
-        lastname: lastname,
-        field: field.id,
-        level: level.id,
-        teacher: teacher.id
-      }
+      complete_json
     else
-      {
-        id: id,
-        firstname: firstname,
-        lastname: lastname,
-        field: field.id,
-        level: level.id
-      }
+      simple_json
     end
+  end
+
+  def complete_json
+    {
+      id: id,
+      firstname: firstname,
+      lastname: lastname,
+      field: field.id,
+      level: level.id,
+      teacher: teacher.id
+    }
+  end
+
+  def simple_json
+    {
+      id: id,
+      firstname: firstname,
+      lastname: lastname,
+      field: field.id,
+      level: level.id
+    }
   end
 end

@@ -1,3 +1,4 @@
+# Field Model
 class Field
   attr_reader :id, :name
 
