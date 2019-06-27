@@ -5,7 +5,7 @@ require_relative '../models/request'
 require_relative '../mymentor'
 require_relative '../views/request_view'
 require 'byebug'
-
+# Request controller, gets input from router and calls view methods
 class RequestController
   def initialize(mymentor)
     @mymentor = mymentor
@@ -16,45 +16,51 @@ class RequestController
     @requests = @mymentor.all_requests
   end
 
-  # Requests methods
   def list_resquests
     @view.display_requests(@requests)
   end
 
   def create_request
-    firstname = ::Helper.new.ask_user_for("firstname")
-    lastname = ::Helper.new.ask_user_for("lastname")
+    request = create_base_request
+    @mymentor.add_request(request)
+    teachers = qualified_teachers(request.field, request.level)
+    teacher_index = select_teacher(teachers)
+    add_course_to_request(request)
+    @mymentor.update_request(request, @teachers[teacher_index], Request::PRICE_PER_HOUR, request.courses)
+  end
+
+  def create_base_request
+    firstname = ::Helper.new.ask_user_for('firstname')
+    lastname = ::Helper.new.ask_user_for('lastname')
     field = ::Selection.new(@mymentor).select_field
     level = ::Selection.new(@mymentor).select_level
     id = @requests.empty? ? 1 : @requests.last.id + 1
-    request = Request.new(id, firstname, lastname, field, level)
-    @mymentor.add_request(request)
-    teachers = qualified_teachers(field, level)
+    Request.new(id, firstname, lastname, field, level)
+  end
+
+  def qualified_teachers(field, level)
+    requested_skill = { field: field, level: level }
+    @teachers.select { |teacher| teacher.skills.include? requested_skill }
+  end
+
+  def select_teacher(teachers)
     if teachers.empty?
       @view.no_teacher
-      return
     else
       @view.show_qualified_teachers(teachers)
-      teacher_index = @view.select_teacher - 1
+      @view.select_teacher - 1
     end
-    add_course_to_request(request)
-    @mymentor.update_request(
-      request,
-      @teachers[teacher_index],
-      Request::PRICE_PER_HOUR,
-      request.courses
-    )
   end
 
   def add_course_to_request(request)
     while @view.add_courses
       date = @view.course_date
-      length = ::Helper.new.ask_user_for("Length in hour").to_i
+      length = ::Helper.new.ask_user_for('Length in hour').to_i
       request.courses << { date: date, length: length, request_id: request.id }
     end
   end
 
-  def get_price
+  def price
     request_id = @view.get_request(@requests)
     request = @requests[request_id - 1]
     if request.courses.any?
@@ -66,22 +72,20 @@ class RequestController
     end
   end
 
-  def get_price_between_dates
-    start_date = @view.start_date
-    end_date = @view.end_date
-    byebug
+  def price_between_dates
     all_courses = @requests.map(&:courses).flatten
-    courses = all_courses.select do |course|
-      start_date < course[:date] && course[:date] < end_date
-    end
+    courses = select_courses(all_courses)
     total_price = courses.map do |course|
-      course[:length] * @requests[(course[:request_id]-1)].price_per_hour
+      course[:length] * @requests[(course[:request_id] - 1)].price_per_hour
     end.sum
     @view.give_price(total_price)
   end
 
-  def qualified_teachers(field, level)
-    requested_skill = { field: field, level: level }
-    teachers = @teachers.select { |teacher| teacher.skills.include? requested_skill }
+  def select_courses(courses)
+    start_date = @view.start_date
+    end_date = @view.end_date
+    courses.select do |course|
+      start_date < course[:date] && course[:date] < end_date
+    end
   end
 end

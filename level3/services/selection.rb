@@ -2,9 +2,8 @@ require_relative '../mymentor'
 require_relative '../models/field'
 require_relative '../models/request'
 require_relative '../views/helper'
-
+# Shared methods used in different controllers
 class Selection
-
   def initialize(mymentor)
     @mymentor = mymentor
     @fields = @mymentor.all_fields

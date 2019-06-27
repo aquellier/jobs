@@ -1,15 +1,15 @@
 require_relative 'helper'
-
+# View methods for teacher
 class TeacherView
   # Teachers methods
   def add_skills_now
     puts "Please type 'yes' if you want to new skills to this teacher or any other key otherwise"
-    print "> "
-    gets.chomp == "yes"
+    print '> '
+    gets.chomp == 'yes'
   end
 
   def skill_alredy_exists
-    puts "Sorry this teacher already has this skill"
+    puts 'Sorry this teacher already has this skill'
     add_skills_now
   end
 

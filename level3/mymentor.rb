@@ -1,6 +1,6 @@
 require 'json'
 require 'date'
-
+# Acts as a DB, interaction between data.json and models
 class Mymentor
   def initialize(json_file)
     @json_file = json_file
@@ -74,25 +74,37 @@ class Mymentor
     json_requests_to_instances(parsed_data[:requests])
   end
 
+  # Teacher methods
   def json_teachers_to_instances(teachers)
     teachers.each do |teacher|
-      if teacher[:skills]
-        @teachers << Teacher.new(
-          teacher[:id],
-          teacher[:firstname],
-          teacher[:lastname],
-          teacher[:skills].map do |skill|
-            { field: @fields[(skill[:field] - 1)],
-              level: @levels[(skill[:level] - 1)]
-            }
-          end
-        )
-      else
-        @teachers << Teacher.new(teacher[:id], teacher[:firstname], teacher[:lastname])
-      end
+      @teachers << if teacher[:skills]
+                     create_complete_teacher_instance(teacher)
+                   else
+                     create_simple_teacher_instance(teacher)
+                   end
     end
   end
 
+  def create_simple_teacher_instance(teacher)
+    Teacher.new(
+      teacher[:id],
+      teacher[:firstname],
+      teacher[:lastname]
+    )
+  end
+
+  def create_complete_teacher_instance(teacher)
+    Teacher.new(
+      teacher[:id],
+      teacher[:firstname],
+      teacher[:lastname],
+      teacher[:skills].map do |skill|
+        { field: @fields[(skill[:field] - 1)], level: @levels[(skill[:level] - 1)] }
+      end
+    )
+  end
+
+  # Field and level methods
   def json_fields_to_instances(fields)
     fields.each do |field|
       @fields << Field.new(
@@ -112,34 +124,47 @@ class Mymentor
     end
   end
 
+  # Requests methods
   def json_requests_to_instances(requests)
     requests.each do |request|
-      if request[:courses]
-        @requests << Request.new(
-          request[:id],
-          request[:firstname],
-          request[:lastname],
-          @fields[(request[:field] - 1)],
-          @levels[(request[:level] - 1)],
-          @teachers[(request[:teacher] - 1)],
-          request[:price_per_hour],
-          request[:courses].map do |course|
-            {
-              date: Date.strptime(course[:date], '%Y-%m-%d'),
-              length: course[:length],
-              request_id: course[:request_id]
-            }
-          end
-        )
-      else
-        @requests << Request.new(
-          request[:id],
-          request[:firstname],
-          request[:lastname],
-          @fields[(request[:field] - 1)],
-          @levels[(request[:level] - 1)]
-        )
-     end
+      @requests << if request[:courses]
+                     create_complete_request_instance(request)
+                   else
+                     create_simple_request_instance(request)
+                   end
+    end
+  end
+
+  def create_simple_request_instance(request)
+    Request.new(
+      request[:id],
+      request[:firstname],
+      request[:lastname],
+      @fields[(request[:field] - 1)],
+      @levels[(request[:level] - 1)]
+    )
+  end
+
+  def create_complete_request_instance(request)
+    Request.new(
+      request[:id],
+      request[:firstname],
+      request[:lastname],
+      @fields[(request[:field] - 1)],
+      @levels[(request[:level] - 1)],
+      @teachers[(request[:teacher] - 1)],
+      request[:price_per_hour],
+      map_courses(request)
+    )
+  end
+
+  def map_courses(request)
+    request[:courses].map do |course|
+      {
+        date: Date.strptime(course[:date], '%Y-%m-%d'),
+        length: course[:length],
+        request_id: course[:request_id]
+      }
     end
   end
 

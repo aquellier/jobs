@@ -4,8 +4,7 @@ require_relative 'controllers/teacher_controller'
 require_relative 'controllers/request_controller'
 require_relative 'router'
 
-
-json_file = File.expand_path('../../data.json', __FILE__)
+json_file = File.expand_path('../data.json', __dir__)
 mymentor = Mymentor.new(json_file)
 teacher_controller = TeacherController.new(mymentor)
 request_controller = RequestController.new(mymentor)

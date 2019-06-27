@@ -5,7 +5,7 @@ require_relative '../mymentor'
 require_relative '../views/teacher_view'
 require_relative '../services/selection'
 require 'byebug'
-
+# Controller, gets input from router and calls view methods
 class TeacherController
   def initialize(mymentor)
     @mymentor = mymentor
@@ -21,8 +21,8 @@ class TeacherController
   end
 
   def create_teacher
-    firstname = ::Helper.new.ask_user_for("firstname")
-    lastname = ::Helper.new.ask_user_for("lastname")
+    firstname = ::Helper.new.ask_user_for('firstname')
+    lastname = ::Helper.new.ask_user_for('lastname')
     id = @teachers.empty? ? 1 : @teachers.last.id + 1
     teacher = Teacher.new(id, firstname, lastname)
     @mymentor.add_teacher(teacher)
