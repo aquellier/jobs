@@ -127,7 +127,7 @@ class Mymentor
       @requests << if request[:teacher]
                      create_complete_request_instance(request)
                    else
-                     @requests << create_simple_teacher_instance(request)
+                     @requests << create_simple_request_instance(request)
                    end
     end
   end
