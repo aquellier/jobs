@@ -4,7 +4,6 @@ require_relative '../models/field'
 require_relative '../mymentor'
 require_relative '../views/teacher_view'
 require_relative '../services/selection'
-require 'byebug'
 # Controller, gets input from router and calls view methods
 class TeacherController
   def initialize(mymentor)

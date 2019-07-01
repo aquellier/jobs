@@ -4,7 +4,6 @@ require_relative '../models/field'
 require_relative '../models/request'
 require_relative '../mymentor'
 require_relative '../views/request_view'
-require 'byebug'
 # Request controller, gets input from router and calls view methods
 class RequestController
   def initialize(mymentor)
